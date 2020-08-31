@@ -1,0 +1,16 @@
+{
+  "description": "Kotlin notebook API test",
+  "properties": {
+    "v": "0.0.1"
+  },
+  "link": "-",
+  "repositories": [
+    "*mavenLocal"
+  ],
+  "dependencies": [
+    "org.ileasile:notebook-api-test:$v"
+  ],
+  "imports": [
+    "org.ileasile.*"
+  ]
+}
