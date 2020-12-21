@@ -1,7 +1,7 @@
 {
   "description": "Kotlin notebook API test",
   "properties": {
-    "v": "0.0.1"
+    "v": "0.0.5"
   },
   "link": "-",
   "repositories": [
@@ -10,7 +10,7 @@
   "dependencies": [
     "org.ileasile:notebook-api-test:$v"
   ],
-  "imports": [
-    "org.ileasile.*"
+  "libraryDefinitions": [
+    "org.ileasile.ApiTestLibraryDefinitionProducer"
   ]
 }

@@ -3,24 +3,27 @@ import com.jfrog.bintray.gradle.BintrayExtension
 import java.util.Date
 
 plugins {
-    kotlin("jvm") version "1.4.0"
+    kotlin("jvm") version "1.4.20"
     `maven-publish`
-    id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("com.jfrog.bintray") version "1.8.1"
+    id("org.jetbrains.dokka") version "1.4.10.2"
+    id("com.jfrog.bintray") version "1.8.5"
 }
 
-group = "org.ileasile"
-version = "0.0.1"
+group = "org.jetbrains.test.kotlinx.jupyter.api"
+version = "0.0.7"
 
 repositories {
     mavenCentral()
+    mavenLocal()
     jcenter()
-    maven("https://dl.bintray.com/ileasile/kotlin-datascience-ileasile")
+    maven("https://kotlin.bintray.com/kotlin-datascience")
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx.jupyter:notebook-api:0.8.2.30.dev3"){
+    val apiVersion = "0.8.3.72.dev1"
+
+    compileOnly(kotlin("stdlib"))
+    compileOnly("org.jetbrains.kotlinx.jupyter:kotlin-jupyter-api:$apiVersion"){
         exclude("org.jetbrains.kotlin")
     }
 
@@ -46,11 +49,11 @@ tasks {
     }
 
     dokkaHtml {
-        outputDirectory = "$buildDir/dokka"
+        outputDirectory.set(File("$buildDir/dokka"))
     }
 
     dokkaJavadoc{
-        outputDirectory = this@tasks.javadoc.get().destinationDir!!.path
+        outputDirectory.set(File(this@tasks.javadoc.get().destinationDir!!.path))
         inputs.dir("src/main/kotlin")
     }
 
@@ -65,7 +68,7 @@ tasks {
 
 publishing {
     publications {
-        create<MavenPublication>("api") {
+        create<MavenPublication>("api-test") {
             artifactId = "notebook-api-test"
             groupId = project.group as String
 
@@ -82,7 +85,7 @@ bintray {
     user = project.findProperty("bintray_user") as String? ?: ""
     key = project.findProperty("bintray_key") as String? ?: ""
 
-    setPublications("api") //When uploading configuration files
+    setPublications("api-test") //When uploading configuration files
 
     dryRun = false //Whether to run this as dry-run, without deploying
     publish = true // If version should be auto published after an upload

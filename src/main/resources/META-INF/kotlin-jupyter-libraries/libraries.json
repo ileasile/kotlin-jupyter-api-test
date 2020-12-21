@@ -1,0 +1,10 @@
+{
+  "producers": [
+    {
+      "fqn": "org.jetbrains.test.kotlinx.jupyter.api.ApiTestLibraryDefinitionProducer"
+    }
+  ],
+  "definitions": [
+
+  ]
+}
