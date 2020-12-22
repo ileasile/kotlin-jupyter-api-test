@@ -3,14 +3,17 @@ import com.jfrog.bintray.gradle.BintrayExtension
 import java.util.Date
 
 plugins {
-    kotlin("jvm") version "1.4.20"
+    kotlin("jvm")
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.10.2"
     id("com.jfrog.bintray") version "1.8.5"
+    id("org.jetbrains.kotlinx.jupyter.api.plugin")
 }
 
 group = "org.jetbrains.test.kotlinx.jupyter.api"
-version = "0.0.7"
+version = "0.0.8"
+
+val jupyterApiVersion: String by project
 
 repositories {
     mavenCentral()
@@ -20,10 +23,8 @@ repositories {
 }
 
 dependencies {
-    val apiVersion = "0.8.3.72.dev1"
-
     compileOnly(kotlin("stdlib"))
-    compileOnly("org.jetbrains.kotlinx.jupyter:kotlin-jupyter-api:$apiVersion"){
+    compileOnly("org.jetbrains.kotlinx.jupyter:kotlin-jupyter-api:$jupyterApiVersion"){
         exclude("org.jetbrains.kotlin")
     }
 
@@ -35,6 +36,10 @@ dependencies {
 }
 
 tasks {
+    processJupyterApiResources {
+        libraryProducers = listOf("org.jetbrains.test.kotlinx.jupyter.api.ApiTestLibraryDefinitionProducer")
+    }
+
     test {
         useJUnitPlatform()
         testLogging {
