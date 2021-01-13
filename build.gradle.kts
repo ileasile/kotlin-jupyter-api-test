@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "org.jetbrains.test.kotlinx.jupyter.api"
-version = "0.0.9"
+version = "0.0.11"
 
 val jupyterApiVersion: String by project
 
