@@ -7,11 +7,11 @@ plugins {
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.10.2"
     id("com.jfrog.bintray") version "1.8.5"
-    id("org.jetbrains.kotlinx.jupyter.api.plugin")
+    kotlin("jupyter.api")
 }
 
 group = "org.jetbrains.test.kotlinx.jupyter.api"
-version = "0.0.11"
+version = "0.0.16"
 
 val jupyterApiVersion: String by project
 
@@ -19,14 +19,13 @@ repositories {
     mavenCentral()
     mavenLocal()
     jcenter()
-    maven("https://kotlin.bintray.com/kotlin-datascience")
 }
 
 dependencies {
     compileOnly(kotlin("stdlib"))
-    compileOnly("org.jetbrains.kotlinx.jupyter:kotlin-jupyter-api:$jupyterApiVersion"){
+    /*compileOnly("org.jetbrains.kotlinx.jupyter:kotlin-jupyter-api:$jupyterApiVersion"){
         exclude("org.jetbrains.kotlin")
-    }
+    }*/
 
     testImplementation(kotlin("test"))
 
@@ -36,10 +35,6 @@ dependencies {
 }
 
 tasks {
-    processJupyterApiResources {
-        libraryProducers = listOf("org.jetbrains.test.kotlinx.jupyter.api.ApiTestLibraryDefinitionProducer")
-    }
-
     test {
         useJUnitPlatform()
         testLogging {

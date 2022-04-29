@@ -11,7 +11,6 @@ pluginManagement {
         mavenLocal()
         mavenCentral()
         gradlePluginPortal()
-        maven("https://kotlin.bintray.com/kotlin-datascience/")
     }
 
     resolutionStrategy {
@@ -19,7 +18,7 @@ pluginManagement {
             when (requested.id.id) {
                 "com.github.johnrengelman.shadow" -> useModule("com.github.jengelman.gradle.plugins:shadow:$shadowJarVersion")
                 "org.jlleitschuh.gradle.ktlint" -> useModule("org.jlleitschuh.gradle:ktlint-gradle:$ktlintGradleVersion")
-                "org.jetbrains.kotlinx.jupyter.api.plugin" -> useModule("org.jetbrains.kotlinx.jupyter:kotlin-jupyter-api-gradle-plugin:$jupyterApiVersion")
+                "org.jetbrains.kotlin.jupyter.api" -> useModule("org.jetbrains.kotlin:kotlin-jupyter-api-gradle-plugin:$jupyterApiVersion")
             }
         }
     }
@@ -28,6 +27,6 @@ pluginManagement {
         kotlin("jvm") version kotlinVersion
         id("com.github.johnrengelman.shadow") version shadowJarVersion
         id("org.jlleitschuh.gradle.ktlint") version ktlintGradleVersion
-        id("org.jetbrains.kotlinx.jupyter.api.plugin") version jupyterApiVersion
+        id("org.jetbrains.kotlin.jupyter.api") version jupyterApiVersion
     }
 }
