@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "org.jetbrains.test.kotlinx.jupyter.api"
-version = "0.0.16"
+version = "0.0.18"
 
 val jupyterApiVersion: String by project
 
@@ -63,6 +63,14 @@ tasks {
         dependsOn(dokkaJavadoc)
         archiveClassifier.set("javadoc")
         from(this@tasks.javadoc.get().destinationDir!!)
+    }
+
+    processJupyterApiResources {
+        libraryProducers = listOf(
+            "org.jetbrains.test.kotlinx.jupyter.api.Integration1",
+            "org.jetbrains.test.kotlinx.jupyter.api.Integration2",
+            "org.jetbrains.test.kotlinx.jupyter.api.Integration3"
+        )
     }
 }
 

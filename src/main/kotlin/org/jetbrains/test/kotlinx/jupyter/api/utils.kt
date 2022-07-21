@@ -1,11 +1,8 @@
 package org.jetbrains.test.kotlinx.jupyter.api
 
 import org.jetbrains.kotlinx.jupyter.api.*
-import org.jetbrains.kotlinx.jupyter.api.annotations.JupyterLibrary
-import org.jetbrains.kotlinx.jupyter.api.libraries.CodeExecution
-import org.jetbrains.kotlinx.jupyter.api.libraries.LibraryDefinition
-import org.jetbrains.kotlinx.jupyter.api.libraries.LibraryDefinitionProducer
-import org.jetbrains.kotlinx.jupyter.api.libraries.libraryDefinition
+import org.jetbrains.kotlinx.jupyter.api.libraries.*
+import kotlin.reflect.typeOf
 
 fun printAllCellsContents(nb: Notebook) {
     nb.cellsList.forEach { cell ->
@@ -45,7 +42,7 @@ class ApiTestLibraryDefinitionProducer: LibraryDefinitionProducer {
         )
     }
 }
-*/
+
 @JupyterLibrary
 class ApiTestLibraryDefinitionProducer3: LibraryDefinitionProducer {
     override fun getDefinitions(notebook: Notebook): List<LibraryDefinition> {
@@ -56,4 +53,37 @@ class ApiTestLibraryDefinitionProducer3: LibraryDefinitionProducer {
             }
         )
     }
+}
+*/
+
+class Integration1: JupyterIntegration() {
+    override fun Builder.onLoaded() {
+        onLoaded { execute("val xxx = 1") }
+    }
+
+}
+
+class Integration2: JupyterIntegration() {
+    override fun Builder.onLoaded() {
+        onLoaded { execute("val yyy = 2") }
+    }
+
+}
+
+class Integration3(
+    notebook: Notebook,
+    private val options: Map<String, String>,
+): JupyterIntegration() {
+    override fun Builder.onLoaded() {
+        onLoaded {
+            declare(
+                VariableDeclaration(
+                    "integrationOptions",
+                    options,
+                    typeOf<Map<String, String>>()
+                )
+            )
+        }
+    }
+
 }
